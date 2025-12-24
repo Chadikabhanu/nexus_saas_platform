@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const db = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
-const projectRoutes = require('./routes/projectRoutes'); // Import
+const projectRoutes = require('./routes/projectRoutes');
 
 const app = express();
 app.use(cors());
@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/projects', projectRoutes); // Mount
+app.use('/api/projects', projectRoutes);
 
 // Health Check
 app.get('/api/health', async (req, res) => {
@@ -24,6 +24,8 @@ app.get('/api/health', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+
+// FIX: Added '0.0.0.0' so Render can connect to the app
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });

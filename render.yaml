@@ -1,5 +1,5 @@
 services:
-  # 1. Backend (No changes here, this part was fine)
+  # 1. Backend (Keep 'plan: free' here)
   - type: web
     name: nexus-backend
     env: docker
@@ -30,13 +30,12 @@ services:
           name: nexus-db
           property: password
 
-  # 2. Frontend (FIXED: Removed 'region' and simplified 'envVars')
+  # 2. Frontend (REMOVED 'plan: free')
   - type: web
     name: nexus-frontend
     env: static
     rootDir: frontend
-    plan: free
-    # region: singapore  <-- DELETED THIS LINE (Static sites are global)
+    # plan: free  <-- DELETED THIS LINE
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
@@ -44,7 +43,7 @@ services:
         value: https://nexus-backend.onrender.com
 
 databases:
-  # 3. Database
+  # 3. Database (Keep 'plan: free' here)
   - name: nexus-db
     databaseName: saas_db
     user: nexus_user

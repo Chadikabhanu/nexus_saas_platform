@@ -1,11 +1,11 @@
 services:
-  # 1. The Backend (Node API)
+  # 1. Backend (No changes here, this part was fine)
   - type: web
     name: nexus-backend
     env: docker
-    rootDir: backend # Points to your backend folder
+    rootDir: backend
     plan: free
-    region: singapore # Or 'oregon' / 'frankfurt' (choose closest to you)
+    region: singapore
     envVars:
       - key: PORT
         value: 5000
@@ -16,8 +16,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
-        value: https://nexus-frontend.onrender.com # We will update this later if needed
-      # Connect Backend to the Database automatically:
+        value: https://nexus-frontend.onrender.com
       - key: DB_HOST
         fromDatabase:
           name: nexus-db
@@ -31,26 +30,21 @@ services:
           name: nexus-db
           property: password
 
-  # 2. The Frontend (React/Vite)
+  # 2. Frontend (FIXED: Removed 'region' and simplified 'envVars')
   - type: web
     name: nexus-frontend
     env: static
-    rootDir: frontend # Points to your frontend folder
+    rootDir: frontend
     plan: free
-    region: singapore
+    # region: singapore  <-- DELETED THIS LINE (Static sites are global)
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: nexus-backend
-          property: url
-          # NOTE: This will give the base URL (e.g., https://backend.com).
-          # If your app needs /api, we might need to append it in your code.
+        value: https://nexus-backend.onrender.com
 
 databases:
-  # 3. The Database
+  # 3. Database
   - name: nexus-db
     databaseName: saas_db
     user: nexus_user

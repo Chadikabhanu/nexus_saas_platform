@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Added useEffect
 import API from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '', subdomain: '' });
   const navigate = useNavigate();
+
+  // --- NEW: Auto-Redirect if already logged in ---
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
+  // -----------------------------------------------
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -22,5 +22,5 @@ A secure, multi-tenant SaaS application built with React, Node.js, and PostgreSQ
 4. Run `docker-compose up` to start locally.
 
 ## Demo Video
-[Link to my YouTube Demo Video](YOUR_YOUTUBE_LINK_HERE)
+[Link to my YouTube Demo Video](https://youtu.be/VwRZrQXilJA)
 
